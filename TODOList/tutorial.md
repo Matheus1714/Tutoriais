@@ -7,6 +7,8 @@
 
 ## Tópicos Abordados
 
+    1. Criar tabela com html
+    2. 
 
 ## Tutorial
 
@@ -23,7 +25,7 @@ Arquitetura do projeto:
     |----tutorial.md
 Em cada arquivo teremos inicialmente os códigos
 * index.html
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -45,13 +47,6 @@ Em cada arquivo teremos inicialmente os códigos
     </body>
 </html>
 ```
-* index.css
-```
-/* Align text with center */
-body{
-    text-align: center;
-}
-```
 ### Criação de Lista no HTML
 A nossa lista será de uma plataforma de educação que oferece cursos básicos para vestibular de todas as matérias. Cada curso terá sua respectiva matéria.
 Em termos de tabelas, teremos o seguinte:
@@ -69,7 +64,7 @@ Inglês     | Verb to do
 Código para a tabela:
 
 * index.html
-```
+```html
 <main>
     <table>
         <tr>
@@ -115,7 +110,7 @@ A tabela criada possui 4 tipos de Tags importantes. A Tag table, que é respons�
 
 Além disso é necessário colocar botões e caixas de texto para adição de elementos na tabela.
 * index.html
-```
+```html
 <div>
     <input type="text" placeholder="matéria">
     <input type="text" placeholder="curso">
@@ -129,7 +124,7 @@ Para podermos desenvolver a lógica do código devemos colocar algo nas Tags par
 
 * index.html
 
-```
+```html
 <main>
     <div id="addDiv">
         <input type="text" placeholder="matéria" id="matter">
@@ -175,6 +170,44 @@ Para podermos desenvolver a lógica do código devemos colocar algo nas Tags par
 Com as marcações criadas agora podemos criar as funcionalidades da lista.
 
 ### Implementando Funcionalidades Principais da Lista
+A primeira funcioalidade importante é adição de elementos.
+* index.js
+```js
+// Create a new line item in table when clicking on the "Adicionar" button
+function newElement(){
+    // Create elements tr and td
+    var tr = document.createElement("tr");
+    var matterTd = document.createElement("td");
+    var courceTd = document.createElement("td");
+    // Get elements in input tag
+    var matter = document.getElementById("matter").value;
+    var cource = document.getElementById("cource").value;
+    // Transform elements in input at text
+    var matterTxt = document.createTextNode(matter);
+    var courceTxt = document.createTextNode(cource);
+    // Add element in td tag
+    matterTd.appendChild(matterTxt);
+    courceTd.appendChild(courceTxt);
+    // Add element in tr tag
+    tr.appendChild(matterTd);
+    tr.appendChild(courceTd);
+    console.log(tr);
+    // Verify null elements or add elements in table
+    if(matter == '' || cource == ''){
+        alert("Você deve escrever algo!");
+    }else{
+        document.getElementById("showTable").appendChild(tr);
+    }
+    // Erase variables in inputs
+    document.getElementById("matter").value = "";
+    document.getElementById("cource").value = "";
+}
+```
+A lógica de adição de elementos é pegar os valores de input das Tags e alocá-las em Tags da tabela. No início do código utilizamos a variável tr para representar uma Tag tr. Depois declaramos as Tags matterTd e courceTd para serem as Tags de cada coluna da tabela.
+Depois utilizamos o appendChild para adicionar os elementos matter e cource na Tag tr.
+Ao final do processo, esvasiamos o valor dos inputs.
+
+
 
 ## Referências
 
