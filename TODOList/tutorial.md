@@ -8,7 +8,8 @@
 ## Tópicos Abordados
 
     1. Criar tabela com html
-    2. 
+    2. Adicionar elementos na tabela
+    3. Remover elementos na tabele
 
 ## Tutorial
 
@@ -233,7 +234,11 @@ function removeElement(){
     document.getElementById("index").value = "";
 }
 ```
+A lógica de deleção de elementos é baseada na retirada de um elemento filho, que é representado por tr, a partir de um elemento pai, que é representado por tbody.
 
+Uma funcionalidade adicional seria a de fazer uma busca de elementos. Deixo como exercício para você tentar implementar isso.
+Deixarei solucionado esse problema no arquivo do projeto index.js.
 ## Referências
 
 * [w3schools.com](https://www.w3schools.com/howto/howto_js_todolist.asp)
+* [calalin.red](https://catalin.red/removing-an-element-with-plain-javascript-remove-method/)
