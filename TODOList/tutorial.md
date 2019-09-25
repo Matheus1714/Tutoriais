@@ -176,27 +176,26 @@ A primeira funcioalidade importante é adição de elementos.
 // Create a new line item in table when clicking on the "Adicionar" button
 function newElement(){
     // Create elements tr and td
-    var tr = document.createElement("tr");
-    var matterTd = document.createElement("td");
-    var courceTd = document.createElement("td");
+    let tr = document.createElement("tr");
+    let matterTd = document.createElement("td");
+    let courceTd = document.createElement("td");
     // Get elements in input tag
-    var matter = document.getElementById("matter").value;
-    var cource = document.getElementById("cource").value;
+    let matter = document.getElementById("matter").value;
+    let cource = document.getElementById("cource").value;
     // Transform elements in input at text
-    var matterTxt = document.createTextNode(matter);
-    var courceTxt = document.createTextNode(cource);
+    let matterTxt = document.createTextNode(matter);
+    let courceTxt = document.createTextNode(cource);
     // Add element in td tag
     matterTd.appendChild(matterTxt);
     courceTd.appendChild(courceTxt);
     // Add element in tr tag
     tr.appendChild(matterTd);
     tr.appendChild(courceTd);
-    console.log(tr);
     // Verify null elements or add elements in table
     if(matter == '' || cource == ''){
         alert("Você deve escrever algo!");
     }else{
-        document.getElementById("showTable").appendChild(tr);
+        document.getElementsByTagName("tbody")[0].appendChild(tr);
     }
     // Erase variables in inputs
     document.getElementById("matter").value = "";
@@ -207,7 +206,33 @@ A lógica de adição de elementos é pegar os valores de input das Tags e aloc�
 Depois utilizamos o appendChild para adicionar os elementos matter e cource na Tag tr.
 Ao final do processo, esvasiamos o valor dos inputs.
 
-
+A segunda funcionlidade é a deleção de elementos. Vamos fazer isso quando o usuário apertar um botão de remover um elemento a partir do índiece.
+* index.html
+```html
+<div id="removeDiv">
+    <input type="text" placeholder="index" id="index">
+    <button onclick="removeElement()" class="removeBtn">Remover</button>
+</div>
+```
+* index.js
+```js
+// Delete elements in table
+function removeElement(){
+    // Get element in input tag
+    let index = document.getElementById("index").value;
+    // Get elements in tag 
+    let tbody = document.getElementsByTagName("tbody")[0];
+    let tr = document.getElementsByTagName("tr");
+    // Verify index value
+    if(index => tr.length || index < 1){
+        alert("A deleção é impossível");
+    }else{
+        tbody.removeChild(tr[index]);
+    }
+    // Erase variables in inputs
+    document.getElementById("index").value = "";
+}
+```
 
 ## Referências
 
