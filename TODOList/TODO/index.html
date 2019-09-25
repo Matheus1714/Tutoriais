@@ -12,12 +12,12 @@
     <body>
         <!-- Main project -->
         <main>
-            <div>
-                <input type="text" placeholder="matéria">
-                <input type="text" placeholder="curso">
-                <button>Adicionar</button>
+            <div id="addDiv">
+                <input type="text" placeholder="matéria" id="matter">
+                <input type="text" placeholder="curso" id="cource">
+                <button onclick="newElement()" class="addBtn">Adicionar</button>
             </div>
-            <table >
+            <table id="showTable">
                 <tr>
                     <th>Matéria</th>
                     <th>Curso</th>

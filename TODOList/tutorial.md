@@ -125,8 +125,55 @@ Além disso é necessário colocar botões e caixas de texto para adição de el
 No navegador teríamos:
 ![input](img/input.PNG)
 
-Já fizemos bastante coisas, mas o visual está bem simples. Vamos melhorá-lo no próximo tópico.
-### Melhorando Visual da Lista com CSS
+Para podermos desenvolver a lógica do código devemos colocar algo nas Tags para fazer marcações no intuito de não mudar Tags iguais.
+
+* index.html
+
+```
+<main>
+    <div id="addDiv">
+        <input type="text" placeholder="matéria" id="matter">
+        <input type="text" placeholder="curso" id="cource">
+        <button onclick="newElement()" class="addBtn">Adicionar</button>
+    </div>
+    <table id="showTable">
+        <tr>
+            <th>Matéria</th>
+            <th>Curso</th>
+        </tr>
+        <tr>
+            <td>Física</td>
+            <td>Mecânica</td>
+        </tr>
+        <tr>
+            <td>Física</td>
+            <td>Lei de Ohm</td>
+        </tr>
+        <tr>
+            <td>Matemática</td>
+            <td>Funções</td>
+        </tr>
+        <tr>
+            <td>Matemática</td>
+            <td>Logarítmo</td>
+        </tr>
+        <tr>
+            <td>Química</td>
+            <td>Estequiometria</td>
+        </tr>
+        <tr>
+            <td>Português</td>
+            <td>Morfologia</td>
+        </tr>
+        <tr>
+            <td>Inglês</td>
+            <td>Verb to do</td>
+        </tr>
+    </table>
+</main>
+```
+Com as marcações criadas agora podemos criar as funcionalidades da lista.
+
 ### Implementando Funcionalidades Principais da Lista
 
 ## Referências
