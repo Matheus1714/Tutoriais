@@ -34,7 +34,8 @@ function removeElement(){
     let tbody = document.getElementsByTagName("tbody")[0];
     let tr = document.getElementsByTagName("tr");
     // Verify index value
-    if(index => tr.length || index < 1){
+    var t = (index => tr.length || index < 1)
+    if(index >= tr.length || index < 1){
         alert("A deleção é impossível");
     }else{
         tbody.removeChild(tr[index]);

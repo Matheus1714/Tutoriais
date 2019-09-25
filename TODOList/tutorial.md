@@ -225,7 +225,7 @@ function removeElement(){
     let tbody = document.getElementsByTagName("tbody")[0];
     let tr = document.getElementsByTagName("tr");
     // Verify index value
-    if(index => tr.length || index < 1){
+    if(index >= tr.length || index < 1){
         alert("A deleção é impossível");
     }else{
         tbody.removeChild(tr[index]);
@@ -237,8 +237,7 @@ function removeElement(){
 A lógica de deleção de elementos é baseada na retirada de um elemento filho, que é representado por tr, a partir de um elemento pai, que é representado por tbody.
 
 Uma funcionalidade adicional seria a de fazer uma busca de elementos. Deixo como exercício para você tentar implementar isso.
-Deixarei solucionado esse problema no arquivo do projeto index.js.
 ## Referências
 
 * [w3schools.com](https://www.w3schools.com/howto/howto_js_todolist.asp)
-* [calalin.red](https://catalin.red/removing-an-element-with-plain-javascript-remove-method/)
+* [catalin.red](https://catalin.red/removing-an-element-with-plain-javascript-remove-method/)
