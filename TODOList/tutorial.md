@@ -111,7 +111,7 @@ No navegador teríamos:
 
 ![Imagem no Navegador](img/table.PNG)
 
-A tabela criada possui 5 tipos de Tags importantes. A Tag table, que é responsável por dar o formato de tabela. A tag tr, que separa os elementos da tabela, a Tag th, que é responsável por dar o título da tabela e a Tag td, que são os elementos da tabela.
+A tabela criada possui 4 tipos de Tags importantes. A Tag table, que é responsável por dar o formato de tabela. A tag tr, que separa os elementos da tabela, a Tag th, que é responsável por dar o título da tabela e a Tag td, que são os elementos da tabela.
 
 Além disso é necessário colocar botões e caixas de texto para adição de elementos na tabela.
 * index.html
@@ -123,7 +123,7 @@ Além disso é necessário colocar botões e caixas de texto para adição de el
 </div>
 ```
 No navegador teríamos:
-![input](img/input.png)
+![input](img/input.PNG)
 
 Já fizemos bastante coisas, mas o visual está bem simples. Vamos melhorá-lo no próximo tópico.
 ### Melhorando Visual da Lista com CSS
