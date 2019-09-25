@@ -23,7 +23,7 @@ Arquitetura do projeto:
     |----index.js
     |----img
     |------favicon.png
-    |----tutorial.md
+    |----README.md
 Em cada arquivo teremos inicialmente os códigos
 * index.html
 ```html
