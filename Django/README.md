@@ -96,7 +96,7 @@ $ python manage.py runserver
 Vá ao navegador e coloque o IP: 127.0.0.1:8000
 ![Django](img/screenDjango.PNG)
 Com isso você poderá começar o projeto em Django.
-### Criar uma aplicação em Django
+### Criar uma Aplicação em Django
 Para nossa primeira aplicação trabalharemos com o projeto Hello World.
 No terminal vamos criar uma aplicação:
 ```shell
@@ -163,6 +163,52 @@ urlpatterns = [
 
 Agora, quando você reiniciar o servidor e visitar localhost: 8000/hello_world, poderá ver o modelo HTML criado:
 ![hello](img/hello.PNG)
+
+### Criação de um Arquivo Base para Estilos
+
+Criaremos um modelo base que podemos importar para cada visualização subseqüente. Este modelo é o local onde adicionaremos posteriormente as importações do estilo Bootstrap.
+Crie outro diretório chamado templates, desta vez em project, e um arquivo chamado base.html, dentro do novo diretório:
+```shell
+$ mkdir project/templates/
+$ touch project/templates/base.html
+```
+Criamos esse diretório de modelos adicionais para armazenar modelos HTML que serão usados em todos os aplicativos Django no projeto. Como você viu anteriormente, cada projeto Django pode consistir em vários aplicativos que lidam com lógica separada, e cada aplicativo contém seu próprio diretório de modelos para armazenar modelos HTML relacionados ao aplicativo.
+
+Essa estrutura de aplicativos funciona bem para a lógica de back-end, mas queremos que todo o site pareça consistente no front-end. Em vez de precisar importar estilos de Bootstrap para todos os aplicativos, podemos criar um modelo ou conjunto de modelos compartilhados por todos os aplicativos. Enquanto o Django souber procurar modelos nesse novo diretório compartilhado, ele poderá salvar muitos estilos repetidos.
+
+Dentro deste novo arquivo (project/templates/base.html), adicione as seguintes linhas de código:
+```python
+{% block page_content %}{% endblock %}
+```
+Agora, em hello_world/templates/hello_world.html, podemos estender este modelo básico:
+```python
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1>Hello, World!</h1>
+{% endblock %}
+```
+O que acontece aqui é que qualquer HTML dentro do bloco page_content é adicionado dentro do mesmo bloco em base.html.
+
+Antes de podermos ver nosso novo aplicativo estilizado, precisamos informar ao nosso projeto Django que existe base.html. As configurações padrão registram diretórios de modelo em cada aplicativo, mas não no próprio diretório do projeto. Em project/settings.py, atualize TEMPLATES:
+```python
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": ["project/templates/"], # Code changed here
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ]
+        },
+    }
+]
+```
+Agora, quando você visita localhost: 8000/hello_world, deve ver que a página foi formatada com um estilo um pouco diferente:
 
 ## Referências
 
