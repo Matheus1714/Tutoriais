@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+<h1>Hello Index</h1>
+<div class="row">
+{% for obj in hello %}
+    <div class="col-md-4">
+        <div class="card mb-2">
+            <img class="card-img-top" src="{% static obj.image %}">
+            <div class="card-body">
+                <h5 class="card-title">{{ obj.title }}</h5>
+                <p class="card-text">{{ obj.description }}</p>
+                <a href="{% url 'hello_detail' obj.pk %}"
+                   class="btn btn-primary">
+                    Read More
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -363,8 +363,25 @@ localhost: 8000 / projects: A página de índice do projeto
 localhost: 8000 / projects / 3: a exibição detalhada do projeto com pk = 3
 
 ### Trabalhando com Templates
+Trabalharemos na contrução de dois modelos:
 
+O modelo hello_index
+O modelo hello_detail
 
+Como adicionamos estilos de Bootstrap ao nosso aplicativo, podemos usar alguns componentes pré-definidos para tornar as visualizações mais bonitas. Vamos começar com o modelo hello_index.
+
+Para o modelo hello_index, você criará uma grade de cartões Bootstrap, com cada cartão exibindo detalhes de hello.
+
+Usaremos um recurso de loops do Django. Com ele você poderá percorrer todos os projetos e criar um cartão para cada um. A sintaxe do loop for no mecanismo de modelo do Django é a seguinte:
+```django
+{% for obj in hello %}
+{# Do something... #}
+{% endfor %}
+```
+Agora que você sabe como os loops funcionam, você pode adicionar o seguinte código a um arquivo chamado hello_world/templates/hello_index.html:
+```html
+
+```
 ## Referências
 
 * [realpython.com](https://realpython.com/get-started-with-django-1/)
