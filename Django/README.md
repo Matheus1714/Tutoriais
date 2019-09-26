@@ -45,6 +45,7 @@ Este comando criará uma pasta venv no seu diretório de trabalho. Dentro deste 
 ```shell
 $ venv/Scripts/activate.bat
 ```
+### Começando com Django
 Agora instalaremos o Django.
 ```shell
 $ pip install Django
@@ -95,8 +96,76 @@ $ python manage.py runserver
 Vá ao navegador e coloque o IP: 127.0.0.1:8000
 ![Django](img/screenDjango.PNG)
 Com isso você poderá começar o projeto em Django.
+### Criar uma aplicação em Django
+Para nossa primeira aplicação trabalharemos com o projeto Hello World.
+No terminal vamos criar uma aplicação:
+```shell
+$ python manage.py startapp hello_world
+```
+No app que você criou você precisa instalar no seu projeto. Vá no arquivo project/settings.py e adicione o seguinte código em INSTALLED_APPS:
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'hello_world', # Code changed here
+]
+```
+Na linha do código você está dizendo ao seu projeto sobre o app criado. A próxima etapa é criar uma view para que você possa exibir algo para o usuário.
+
+Views em Django são uma coleção de funções ou classes dentro de views.py no diretório de app. Cada função ou classe possui um processo lógico para cada URL visitada.
+No arquivo views.py de hello_world:
+```python
+from django.shortcuts import render
+def hello_world(request):
+    return render(request, 'hello_world.html',{})
+```
+Neste pedaço de código, você definiu uma função de visualização chamada hello_world (). Quando essa função é chamada, ela renderiza um arquivo HTML chamado hello_world.html. Esse arquivo ainda não existe, mas vamos criá-lo em breve.
+
+A função view aceita um argumento, request. Este objeto é um HttpRequestObject que é criado sempre que uma página é carregada. Ele contém informações sobre a solicitação, como o método, que pode assumir vários valores, incluindo GET e POST.
+
+Agora que você criou a função de visualização, é necessário criar o modelo HTML a ser exibido para o usuário. render () procura modelos HTML dentro de um diretório chamado modelos dentro do diretório do aplicativo. Crie esse diretório e, posteriormente, um arquivo chamado hello_world.html dentro dele:
+```shell
+$ mkdir hello_world/templates/
+$ touch hello_world/templates/hello_world.html
+```
+Adicione a linha no html:
+* hello_world.html
+```html
+<h1>Hello World</h1>
+```
+Agora você criou uma função para lidar com suas visualizações e modelos para exibir ao usuário. A etapa final é conectar seus URLs para que você possa visitar a página que acabou de criar. Seu projeto possui um módulo chamado urls.py, no qual você precisa incluir uma configuração de URL para o aplicativo hello_world. Dentro de project/urls.py, adicione o seguinte:
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('hello_world.urls')),
+]
+```
+Isso procura por um módulo chamado urls.py dentro do aplicativo hello_world e registra quaisquer URLs definidos lá. Sempre que você visitar o caminho raiz do seu URL (localhost: 8000), os URLs do aplicativo hello_world serão registrados. O módulo hello_world.urls ainda não existe, então você precisará criá-lo:
+```shell
+$ touch hello_world/urls.py
+```
+Dentro deste módulo, precisamos importar o objeto de caminho, bem como o módulo de visualizações do nosso aplicativo. Em seguida, queremos criar uma lista de padrões de URL que correspondam às várias funções de exibição. No momento, criamos apenas uma função de visualização, portanto, precisamos criar apenas um URL:
+```python
+from django.urls import path
+from hello_world import views
+
+urlpatterns = [
+    path('hello_world',views.hello_world, name='hello_world'),
+]
+```
+
+Agora, quando você reiniciar o servidor e visitar localhost: 8000/hello_world, poderá ver o modelo HTML criado:
+![hello](img/hello.PNG)
 
 ## Referências
 
 * [realpython.com](https://realpython.com/get-started-with-django-1/)
 * [docs.djangoproject.com](https://docs.djangoproject.com/en/2.2/)
+* [ohmycode.com.br](https://ohmycode.com.br/2017/09/10/cadastro-e-autenticacao-de-usuarios-no-django.html)
