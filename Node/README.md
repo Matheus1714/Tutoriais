@@ -8,8 +8,8 @@ O Node.js é um ambiente de tempo de execução de código aberto, plataforma cr
 
 ## Instâncias
 
-* (NodeJS)[https://nodejs.org/en/]
+* [NodeJS](https://nodejs.org/en/)
 
 ## Referências
 
-* (en.wikipedia.org)[https://en.wikipedia.org/wiki/Node.js]
+* [en.wikipedia.org](https://en.wikipedia.org/wiki/Node.js)
