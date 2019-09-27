@@ -372,6 +372,95 @@ app.post('/show', (req, res) => {
 Volte ao navegador e preencha o formulário. Você será direcionado para a página `localhost:3000/show`, e verá a tabela com os usuários cadastrados.
 
 ![show](img/show.png)
+
+#### UPDATE
+
+A operação UPDATE é usada quando você quer alterar algum conteúdo no BD.
+No arquivo `show.ejs` eu incluí os redirecionamentos dos botões de edição e deleção.
+
+Para nosso projeto, irei fazer um post na rota `/edit/:id` e irei tratar essa atualização conforme abaixo. Note que fiz algumas alterações na estrutura do projeto, aproveitando um recurso de rotas que o Express() nos oferece.
+Veja abaixo que, com o recurso de rotas fornecido, podemos apenas indicar qual a rota iremos observar e dentro dessa rota, teremos os métodos abaixo.
+```js
+const ObjectId = require('mongodb').ObjectID;
+
+app.route('/edit/:id')
+.get((req, res)=>{
+    var id = req.params.id;
+
+    db.collection('data').find(ObjectId(id)).toArray((err, result)=>{
+        if(err) return res.send(err);
+        res.render('edit.ejs', {data: result});
+    })
+})
+.post((req,res)=>{
+    var id = req.params.id;
+    var name = req.body.name;
+    var email = req.body.email;
+    var cource = req.body.cource;
+
+    db.collection('data').updateOne({_id: ObjectId(id)}, {
+        $set: {
+            name: name,
+            email: email,
+            cource: cource
+        }
+    }, (err, result)=>{
+        if(err) return res.send(err);
+        res.redirect('/show');
+        console.log('Autorizado no Banco de Dados');
+    })
+})
+```
+No método `.get`, estou armazenando em `var id`, o id que iremos passar no params vindo da view (faremos primeiro nossos métodos no servidor, e depois a view), estou usando essa variável para encontrar o objeto que iremos alterar, isso está sendo feito na função .find(Object(id)) que irá percorrer o array em nosso banco, e quando encontrar o nosso objeto, irá renderizar a nossa view `edit.ejs` e também passando o resultado desse objeto para ser usado com os valores dentro do `<form> `em nossa view.
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Faculdade</title>
+    </head>
+    <body>
+        <h2>Editar Registro</h2>
+        <% data.forEach(function(details) { %>
+            <form action="/edit/<%= details._id %>" method="POST">
+                <input type="text" value="<%= details.name %>", name="name">
+                <input type="text" value="<%= details.email %>", name="email">
+                <input type="text" value="<%= details.cource %>", name="cource">
+                <br />
+                <button><a href="/show">Todos</a></button>
+                <button type="submit">Editar</button>
+            </form>
+        <% }) %>
+    </body>
+</html>
+```
+Na imagem ao lado, vemos o código da nossa view, criei um novo arquivo dentro da pasta views, com o nome `edit.ejs`. Nele há um formulário parecido com o que temos no `index.ejs`, porém, ao invés de incluir um novo “nome”, "email" e "curso", iremos alterar o valor já existente. Note que incluí um botão para voltar aos registros salvos, e outro que fará o post para editar nosso objeto, veja que já estou importando os dados que está sendo renderizado conforme imagem acima. Note também que estou passando o id do objeto no `params`, e já estou usando os valores da nossa base de dados dentro do input para melhor visualização do dado que estamos editando.
+![edit](img/edit.png)
+Voltando ao nosso código de update pouco mais acima, note que quando fazemos um .post o nosso server irá armazenar as variáveis que iremos usar para dar update em nosso objeto, updateOne() recebe o nosso objeto que estamos alterando, e $set recebe os dados do form que queremos atualizar, se tudo estiver correto, seremos redirecionado para a tela onde mostra todos nossos registros, e estamos printando em nosso console a informação de “Atualizado no banco de dados”.
+
+#### DELETE
+A operação DELETE é a última operação desse nosso projeto, após ter feito corretamente o UPDATE, e tendo adquirido esse conhecimento, você verá que o método .delete é bem simples.
+
+No botão "deletar" de `/show` iremos apenas deletar os dados com o método `deleteOne`.
+
+```js
+app.route('/delete/:id')
+.get((req,res)=>{
+    var id = req.params.id;
+
+    db.collection('data').deleteOne({_id:ObjectId(id)}, (err, result) => {
+        if(err) return res.send(500, err);
+        console.log('Deletando do Banco de Dados');
+        res.redirect('/show');
+    })
+})
+```
+Deletando o usuário com o botão delete você terá deletedo o usuário. Isso será mostrado no terminal com a menssage "Deletado do Banco de Dados".
+
+Note que quando clicar no botão de deletar, seremos direcionados para `/delete/:id` e então, com o método `.get`iremos pegar e armazenar o id enviado, e da mesma forma que o `updateOne`, estamos passsando o id a ser buscado em nosso BD e então deletá-lo, printamos em nosso console a informação de deletado e seremos redirecionados para a tela de registros.
+
+
 ## Referências
 
 * [www.codecademy.com](https://www.codecademy.com/articles/what-is-crud)
