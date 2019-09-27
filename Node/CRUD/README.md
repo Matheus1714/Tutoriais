@@ -460,7 +460,7 @@ Deletando o usuário com o botão delete você terá deletedo o usuário. Isso s
 
 Note que quando clicar no botão de deletar, seremos direcionados para `/delete/:id` e então, com o método `.get`iremos pegar e armazenar o id enviado, e da mesma forma que o `updateOne`, estamos passsando o id a ser buscado em nosso BD e então deletá-lo, printamos em nosso console a informação de deletado e seremos redirecionados para a tela de registros.
 
-
+Caso não tenha conseguido fazer algo, veja o projeto pronto no GitHub.
 ## Referências
 
 * [www.codecademy.com](https://www.codecademy.com/articles/what-is-crud)
