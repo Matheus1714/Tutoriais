@@ -37,6 +37,7 @@ app.get('/show', (req, res) => {
 })
 
 app.post('/show', (req, res) => {
+    console.log(req.body);
     db.collection('data').save(req.body, (err, result) => {
         if (err) return console.log(err)
 

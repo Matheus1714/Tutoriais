@@ -86,7 +86,7 @@ Isso indica que podemos nos comunicar com o servidor Express atraves do navegado
 ### Iniciando o CRUD
 
 #### READ
-É uma operação executada pelos navegadores sempre que visitamos uma página web. Ao ser iniciada, os navegadores enviam uma solicitação *GET* ao servidor para esecutar uma operação de leitura. Isso foi realizado no arquivo server.js:
+É uma operação executada pelos navegadores sempre que visitamos uma página web. Ao ser iniciada, os navegadores enviam uma solicitação *GET* ao servidor para executar uma operação de leitura. Isso foi realizado no arquivo server.js:
 ```js
 app.get('/',(req,res)=>{
     res.send('Hello World');
@@ -106,7 +106,7 @@ Teremos a seguinte arquitetura;
 ```
 Faculdade/
 │
-├── nodemodules/
+├── node_modules/
 ├── views/
 │   ├── index.ejs
 ├── server.js
@@ -209,13 +209,169 @@ app.use(bodyParser.urlencoded({extended: true}));
 ```
 O método `urlencoded` dentro de body-parser diz ao body-parser para extrair dados do elemento `<form>` e adicioná-los à propriedade body no objeto request.
 
-Para testarmos, coloque o `server.js`:
+Para testarmos, coloque no `server.js`:
 ```js
 app.post('/show',(req.res)=>{
     console.log(req.body);
 });
 ```
 Ao preencher o formulário você verá no terminal um JSON com as informações que nós precisamos.
+```shell
+Server running on port 3000
+{ name: 'Daniel', email: 'd@gmail.com', cource: 'Mecânica' }
+```
+
+A informação do JSON será armazenada em um Banco de Dados. Para este tutorial utilizaremos o MongoDB. Instalaremos ele com o npm:
+```shell
+$ npm i mongodb --save
+```
+Uma vez instalado, podemos nos conectar ao MongoDB através do método de conexão do `Mongo.Client`:
+```js
+const MongoClient = require('mongodb').MongoClient;
+const uri = "Caminho do DB";
+MongoClient.connect(uri, (err,client)=>{
+    // start server
+})
+```
+O nosso servidor será iniciado apenas quando o banco de dados estiver conectado. Para isso, moveremos o `app.listen` para dentro do método `connect`.
+```js
+const MongoClient = require('mongodb').MongoClient;
+
+const uri = "Caminho do DB";
+MongoClient.connect(uri, (err, client) => {
+    if(err) return console.log(err);
+    db = client.db('node-rest-quiz'); /// Nome do DB
+    app.listen(3000, ()=>{
+        console.log('Server running on port 3000');
+    });
+})
+```
+
+Acabamos de configurar o MongoDB. Agora, vamos criar uma coleção, dados do input, para armazenar os dados do nosso projeto.
+
+Iremos criar a coleção “data”, que irá armazenar nossos dados, apenas colocando-a entre aspas ao chamar o método d`b.collection()` do MongoDB. Ao criar a coleção, também podemos salvar nossa primeira entrada no MongoDB com o método save simultaneamente.
+
+Quando terminarmos de salvar, precisamos redirecionar o usuário para algum lugar (senão o usuário ficará esperando para sempre até que nosso servidor seja alterado). Nesse caso, vamos redirecioná-los de volta para "/", o que faz com que os navegadores sejam recarregados.
+
+```js
+app.post('/show',(req,res)=>{
+    db.collection('data').save(req.body, (err, result)=>{
+        if(err) return console.log(err);
+        console.log("Salvo no Banco de Dados");
+        res.redirect('/');
+    });
+});
+```
+
+Podemos obter o conteúdo do nosso BD usando o método `find` disponível no método `collection`.
+
+```js
+app.get('/', (req,res)=>{
+    let cursor = db.collection('data').find();
+});
+```
+O método de localização retorna um cursor(um objeto do Mongo), este objeto contém todas as citações de nosso banco de dados. Ele também contém várias outras propriedades e métodos que nos permitem trabalhar com dados facilmente. Um desses métodos é o método `toArray`.
+
+O método `toArray` recebe uma função callback que nos permite fazer algumas coisas com os objetos que recuperamos.
+
+Para visualisar o histórico de usuários cadastrados vamos criar o arquivo `show.ejs`.
+
+Criaremos uma tabela com todas as informações:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faculdade</title>
+</head>
+<body>
+
+<h2>Registros<h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Nome</td>
+                <td>Email</td>
+                <td>Faculdade</td>
+                <td>Ação</td>
+            </tr>
+        </thead>
+        <tbody>
+        <% data.forEach(function(details) { %>
+            <tr>
+                <td><%= details.name %></td>
+                <td><%= details.email %></td>
+                <td><%= details.cource %></td>
+                <td><a href="/edit/<%= details._id %>">Editar</a> - <a href="/delete/<%= details._id %>">Deletar</a></td>
+            </tr>
+            <% }) %>
+        </tbody>
+        <button><a href="/">Voltar</a></button>
+</body>
+</html>
+```
+Antes de visualisar a página, vamos renderisar a página `show.ejs` no arquivo `server.js`.
+
+```js
+app.get('/show', (req, res) => {
+    db.collection('data').find().toArray((err, results) => {
+        if (err) return console.log(err)
+        res.render('show.ejs', { data: results })
+
+    })
+});
+```
+O código do `server.js` deve estar:
+```js
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+
+const MongoClient = require('mongodb').MongoClient;
+
+const uri = "mongodb+srv://matheus1714:matheus1714@node-rest-quiz-rps7a.mongodb.net/test?retryWrites=true&w=majority";
+
+MongoClient.connect(uri, (err, client) => {
+    if (err) return console.log(err)
+    db = client.db('node-rest-quiz') // coloque o nome do seu DB
+
+    app.listen(3000, () => {
+        console.log('Server running on port 3000')
+    })
+})
+
+app.use(bodyParser.urlencoded({ extended: true }))
+
+app.set('view engine', 'ejs')
+
+app.get('/', (req, res) => {
+    res.render('index.ejs')
+})
+
+app.get('/', (req, res) => {
+    var cursor = db.collection('data').find()
+})
+
+app.get('/show', (req, res) => {
+    db.collection('data').find().toArray((err, results) => {
+        if (err) return console.log(err)
+        res.render('show.ejs', { data: results })
+
+    })
+})
+
+app.post('/show', (req, res) => {
+    db.collection('data').save(req.body, (err, result) => {
+        if (err) return console.log(err)
+
+        console.log('Salvo no Banco de Dados')
+        res.redirect('/show')
+    })
+})
+```
+Volte ao navegador e preencha o formulário. Você será direcionado para a página `localhost:3000/show`, e verá a tabela com os usuários cadastrados.
+
+![show](img/show.png)
 ## Referências
 
 * [www.codecademy.com](https://www.codecademy.com/articles/what-is-crud)
