@@ -2,7 +2,7 @@
 
 ![CRUD](img/crud.png)
 
-## Apresentão
+## Apresentação
 
 Quando estamos criando APIs, queremos que nossos modelos forneçam quatro tipos básicos de funcionalidade. O modelo deve ser capaz de criar, ler, atualizar e excluir recursos. Os cientistas da computação geralmente se referem a essas funções pelo acrônimo CRUD. Um modelo deve ter a capacidade de executar no máximo essas quatro funções para ser concluído. Se uma ação não puder ser descrita por uma dessas quatro operações,ela deverá ser um modelo próprio.
 
