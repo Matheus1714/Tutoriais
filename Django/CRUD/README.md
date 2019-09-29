@@ -154,8 +154,69 @@ Reiniciando o servidor você verá o modelo em branco criado:
 
 ![white](img/white.png)
 
+Criaremos um modelo base que podemos importar para cada visualização subsequente. Este modelo é o local onde adicionaremos posteriormente as importações do estilo Bootstrap.
+Crie outro diretório chamado templates, desta vez em project, e um arquivo chamado base.html, dentro do novo diretório:
+
+```shell
+$ mkdir project/templates/
+$ touch project/templates/base.html
+```
+
+Dentro deste novo arquivo (project/templates/base.html), adicione as seguintes linhas de código:
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CRUD</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        {% block page_content %}{% endblock %}
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
+```
+
+Agora, em CRUD/templates/index.html, podemos estender este modelo básico:
+
+```html
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1>Usando Base</h1>
+{% endblock %}
+```
+O que acontece aqui é que qualquer HTML dentro do bloco page_content é adicionado dentro do mesmo bloco em base.html.
+
+Antes de podermos ver nosso novo aplicativo estilizado, precisamos informar ao nosso projeto Django que existe base.html. As configurações padrão registram diretórios de modelo em cada aplicativo, mas não no próprio diretório do projeto. Em project/settings.py, atualize TEMPLATES:
+```python
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": ["project/templates/"], # Code changed here
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ]
+        },
+    }
+]
+```
+
+Agora, quando você visita localhost: 8000, deve ver que a página:
+
+
 #### CREATE
 
+O primeiro método a ser criado será o de criar elementos da lista. P
 
 ## Referências
 
