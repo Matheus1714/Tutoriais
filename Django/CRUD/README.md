@@ -214,9 +214,48 @@ TEMPLATES = [
 Agora, quando você visita localhost: 8000, deve ver que a página:
 
 ![crud](img/crud.png)
+
+#### READ
+
+É uma operação executada pelos navegadores sempre que visitamos uma página web. Ao ser iniciada, os navegadores enviam uma solicitação GET ao servidor para executar uma operação de leitura. Isso foi realizado em urls.py.
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('CRUD.urls')),
+]
+```
+
+Vamos agora iniciar a parte visual do nosso projeto.
+
+Coloque em index.html o seguinte código:
+
+```html
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="card" style="width: 30rem; text-align: center;">
+    <h2>Registrar<h2>
+    <form action="/show" method="POST">
+        <input type="text" placeholder="Nome" name="name">
+        <input type="text" placeholder="Sexo" name="sex">
+        <input type="text" placeholder="Time" name="team">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock %}
+```
+
+Você terá a seguinte visualização na tela:
+
+![register](img/register.png)
+
 #### CREATE
 
-O primeiro método a ser criado será o de criar elementos da lista. P
 
 ## Referências
 
