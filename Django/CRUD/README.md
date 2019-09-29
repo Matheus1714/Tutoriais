@@ -213,7 +213,7 @@ TEMPLATES = [
 
 Agora, quando você visita localhost: 8000, deve ver que a página:
 
-
+![crud](img/crud.png)
 #### CREATE
 
 O primeiro método a ser criado será o de criar elementos da lista. P
