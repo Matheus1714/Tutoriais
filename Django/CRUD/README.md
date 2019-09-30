@@ -255,6 +255,14 @@ Você terá a seguinte visualização na tela:
 ![register](img/register.png)
 
 #### CREATE
+A operação CREATE é executada apenas pelo navegador se uma solicitação POST for enviada ao servidor. Essa solicitação POST pode ser acionada com JavaScript ou por meio de um elemento `<form>`. O elemento formulário possui três atributos importantes:
+
+* action
+* method
+* name, email e cource para elementos `<input>` do formulário
+
+O atributo action informa ao navegador para onde redirecionar nosso as informações preenchidas. Nesse caso estamos sendo direcionados para /show . O atributo method informa ao navegador qual solicitação enviar, nesse caso é uma solicitação do tipo POST.
+
 
 
 ## Referências
