@@ -92,7 +92,7 @@ Vá ao navegador e coloque o IP: 127.0.0.1:8000
 ![Django](img/screen.png)
 Com isso você poderá começar o projeto em Django.
 
-### Iniciando o CRUD
+### Criação do App
 
 Criaremos uma aplicação em Django chamada CRUD. Nela desenvolveremos nossos métodos.
 
@@ -112,6 +112,8 @@ INSTALLED_APPS = [
     'CRUD', # Code changed here
 ]
 ```
+
+### Criação de Molelos e Dados
 
 Agora, criaremos uma modelo em Django para podermos construir a lista de torcedores.
 
@@ -216,6 +218,7 @@ Eduarda | F | Fortaleza
 
 Agora que possuímos um modelo de dados e dados de pessoas nele será criado os métodos do CRUD.
 
+### Iniciando o CRUD
 
 ## Referências
 
