@@ -525,6 +525,40 @@ Para melhorar a interação com as páginas, coloque em fans-form.html o seguint
 
 Com isso, você poderá excluir usuários da sua listagem de torcedores.
 
+### CRUD no admin
+
+No Django, já existe CRUD pronto para o admin.
+
+Para ter acesso a essas informações teremos que criar um superuser. Isso poe ser feito com:
+
+```sh
+python3 manage.py createsuperuser
+```
+
+Você terá:
+```sh
+Username: mysuperuser
+Email address: superuser@gmail.com
+Password: 
+Password (again):
+Superuser created successfully.
+```
+
+Com o usuário admin criado acesse 127.0.0.1:8000/admin
+
+![admin](img/admin.png)
+
+Quando você estiver logado você verá que sua classe `Fans` criada na paǵina:
+
+![admin-login](img/admin-login.png)
+
+Se você acessar a `Fans` você verá a lista de torcedores já criadas:
+
+![list-admin](img/list-admin.png)
+
+Da mesma maneira os dados podem ser editados e excluídos. Contudo, a tela de admin relaciona-se aprenas com a organização dos dados.
+
+
 ## Referências
 
 * [en.wikipedia.org](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
