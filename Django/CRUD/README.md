@@ -113,35 +113,108 @@ INSTALLED_APPS = [
 ]
 ```
 
-Agora criaremos uma view para exibir algo para o usuário.
+Agora, criaremos uma modelo em Django para podermos construir a lista de torcedores.
 
-No arquivo views.py de CRUD:
+No arquivo models.py coloque o código:
 
 ```python
-from django.shortcuts import render
-def index(request):
-    return render(request, 'index.html',{})
-```
-Agora que você criou a função de visualização, é necessário criar o modelo HTML a ser exibido para o usuário. render () procura modelos HTML dentro de um diretório chamado modelos dentro do diretório do aplicativo. Crie esse diretório e, posteriormente, um arquivo chamado index.html dentro dele:
-```sh
-mkdir CRUD/templates/
-touch CRUD/templates/index.html
-```
-Agora você criou uma função para lidar com suas visualizações e modelos para exibir ao usuário. A etapa final é conectar seus URLs para que você possa visitar a página que acabou de criar. Seu projeto possui um módulo chamado urls.py, no qual você precisa incluir uma configuração de URL para o aplicativo CRUD. Dentro de project/urls.py, adicione o seguinte:
-```python
-from django.contrib import admin
-from django.urls import path, include
+from django.db import models
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('CRUD.urls')),
-]
+class Fan(models.Model):
+    name = models.CharField(max_length=100)
+    sex = models.CharField(max_length=100)
+    team = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 ```
-O módulo index.urls ainda não existe, então você precisará criá-lo:
+
+Veja que criamos uma classe chamada `Fan` que possui o nome do torcedor, o sexo do torcedor e o time do torcedor.
+
+Além disso, criamos a função construtora `__str__` que retorna o nome do usuário cadastrado.
+
+Também construíremos outro modelo para cadastrar o usuário utilizando um formuário.
+
+Na pasta CRUD crie o arquivo forms.py:
+
 ```sh
-touch CRUD/urls.py
+touch CRUD/forms.py
 ```
-Dentro deste módulo, precisamos importar o objeto de caminho, bem como o módulo de visualizações do nosso aplicativo. Em seguida, queremos criar uma lista de padrões de URL que correspondam às várias funções de exibição. No momento, criamos apenas uma função de visualização, portanto, precisamos criar apenas um URL:
+
+Dentro dessa pasta coloque o código:
+
+```python
+from django import forms
+from .models import Fan
+
+class FanForm(forms.ModelForm):
+    class Meta:
+        model = Fan
+        fields = ['name','sex','team']
+```
+
+O que acabamos de criar foi uma classe `FanForm` que terá todas as informações da classe `Fan` por meio da classe `Meta`. Ou seja, meta dados criados que possuem nome, sexo e time do torcedor.
+
+Para as classes serem usadas no projeto em Django como um modelo SQL, devemos fazer uma migração das informaçẽos com os comandos:
+
+```sh
+python manage.py makemigrations CRUD
+ython manage.py migrate
+```
+
+Com isso você terá tabelas criadas e migradas para o seu banco de dados, que no caso o padrão usado no Django é o `db.sqlite3`.
+
+Para criar instâncias da nossa classe Fan, teremos que usar o shell do Django. O shell do Django é semelhante ao shell do Python, mas permite acessar o banco de dados e criar entradas. Para acessar o shell do Django, usamos outro comando de gerenciamento do Django:
+
+No terminal, digite o comando:
+
+```sh
+python manage.py shell
+```
+
+Depois de acessar o shell, você notará que o prompt de comando mudará de $ para >>>. Você pode importar seus modelos:
+
+```sh
+from CRUD.models import Fan
+```
+
+Criaremos usuários com os seguintes atributos:
+
+name | sex | team
+---- | --- | ----
+Lucas | M | Vasco
+Matheus | M | Flamengo
+Milena | F | Coríntias
+Eduarda | F | Fortaleza
+
+```sh
+>>> p1 = Fan(
+...     name='Lucas',
+...     sex='M',
+...     team='Vasco'
+... )
+>>> p1.save()
+>>> p2 = Fan(
+...     name='Matheus',
+...     sex='M',
+...     team='Flamengo'
+... )
+>>> p2.save()
+>>> p3 = Fan(
+...     name='Milena',
+...     sex='F',
+...     team='Coríntias'
+... )
+>>> p3.save()
+>>> p4 = Fan(
+...     name='Eduarda',
+...     sex='F',
+...     team='Fortaleza'
+... )
+>>> p4.save()
+```
+
+Agora que possuímos um modelo de dados e dados de pessoas nele será criado os métodos do CRUD.
 
 
 ## Referências
