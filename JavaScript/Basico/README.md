@@ -10,7 +10,7 @@ Além disso, essa linguagem é um dos elementos do desenvolvimento separado em c
 
 Existem 3 camadas básicas no desenvolvimento para web:
 
-#  | Camada     | Função
+Nível  | Camada     | Função
 -- | ---------  | --------
 1  | HTML       | marcação
 2  | CSS        | formatação
