@@ -19,6 +19,41 @@ Aqui está uma hierarquia simples de alguns objetos importantes:
 
 ![dom](img/dom.jpg)
 
+## Tutorial
+
+Faremos um projeto de criação de elementos do DOM com JavaScript para treino de algumas funções importantes do JavaScript.
+
+Comece criando uma pasta e entrado nela:
+
+```sh
+mkdir proj
+cd proj
+```
+
+Agora criaremos as pastas `index.js` e `index.html`:
+
+```sh
+touch index.js
+touch index.html
+```
+
+Coloque no `index.html` o seguinte código:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>DOM</title>
+    </head>
+    <body>
+        <script src="index.js"></script>
+    </body>
+</html>
+```
+
+
+
 ## Referências
 
 * [www.tutorialspoint.com](https://www.tutorialspoint.com/javascript/javascript_html_dom.htm)
