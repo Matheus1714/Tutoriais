@@ -113,5 +113,3 @@ alert("My menssage of alert")
 Se clicar no arquivo html você será redirecionado para uma tela e aparecerá a menssagem:
 
 ![alert](img/alert.png)
-
-## Referências
