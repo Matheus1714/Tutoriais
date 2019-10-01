@@ -37,7 +37,7 @@ console.log("Bloco 2")
 
 Nesse exemplo o bloco é executado em ordem. `console.log` é uma função de printar valores.
 
-### Tipa da Linguagem
+### Tipagem da Linguagem
 
 A linguagem é do tipo interpretada, ou seja, o código é executado de cima para baixo e o resultado da execução é imediatamente retornado. 
 
@@ -63,7 +63,7 @@ No caso do JavaScript ele também pode ser usado como um server-side junto com o
 
 ### Dinamismo
 
-Outro termo importante é dinâmico. Ele é usado para descrever tanto o JavaScript client-side como o server-side. A expressão dinâmico server-side se refere á habilidade de atualizar a exibição de uma página web/app para mostrar informações diferentes gerando um novo conteúdo conforme a solicitação. Código do lado do servidor dinamicamente gera novo conteúdo no servidor, obtendo dados de um banco de dados. Já a expressão dinêmico client-side se refere ao dinamismo do JavaScript em gerar novo conteúdo dentro do navegador do cliente, como criar uma nova tabela HTML a partir de dados do servidor.
+Outro termo importante é dinâmico. Ele é usado para descrever tanto o JavaScript client-side como o server-side. A expressão dinâmico server-side se refere á habilidade de atualizar a exibição de uma página web/app para mostrar informações diferentes gerando um novo conteúdo conforme a solicitação. Código do lado do servidor dinamicamente gera novo conteúdo no servidor, obtendo dados de um banco de dados. Já a expressão dinâmico client-side se refere ao dinamismo do JavaScript em gerar novo conteúdo dentro do navegador do cliente, como criar uma nova tabela HTML a partir de dados do servidor.
 
 Uma página web sem atualizações dinâmicas é chamada de estática, mostrar o mosmo conteúdo.
 
