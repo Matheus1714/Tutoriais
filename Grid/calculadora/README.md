@@ -1,5 +1,7 @@
 # Layout de Calculadora com Grid
 
+![calculator](img/calculator.png)
+
 ## Apresentação
 
 Neste tutorial apresentarei como fazer uma calculadora utilizando a lógica de Grid, que é  importante para desenvolver layouts complexos de forma simples. 
@@ -73,14 +75,14 @@ Coloque o seguinte código no HTML
 </html>
 ```
 
-Antes de iniciar, devemos fazer uma definição básica para o html. Crie uma pasta `css` e o arquivo `reset.css`:
+Antes de iniciar, devemos fazer uma definição básica para o html. Crie uma pasta `css` e o arquivo `styles.css`:
 
 ```sh
 mkdir css
-touch css/reset.css
+touch css/styles.css
 ```
 
-No arquivo de `reset.css` coloque o código:
+No arquivo de `styles.css` coloque o código:
 
 ```css
 html {
@@ -94,6 +96,26 @@ html {
   box-sizing: inherit;
 }
 ```
+
+Isso define a margem e o preenchimento de cada elemento HTML como zero e o tamanho da caixa: border-box; A declaração altera o modelo da caixa, garantindo que o preenchimento e a borda de um elemento não aumentem mais sua largura.
+
+Para os estilos básicos da calculadora
+adicione os seguintes estilos abaixo da redefinição para centralizar absolutamente a calculadora na página e fornecer uma borda e largura fixa.
+
+```css
+.calculator {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+}
+```
+
+
+
 
 ## Referências
 
