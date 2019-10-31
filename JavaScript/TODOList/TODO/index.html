@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <!-- Title in guide -->
+        <title>TO DO List</title>
+        <!-- Favicon in guide -->
+        <link rel="icon" href="img/favicon.png" type="image/png">
+        <!-- Link the file css in file html -->
+        <link rel = "stylesheet" type = "text/css" href = "index.css" />
+    </head>
+    <body>
+        <!-- Main project -->
+        <main>
+            <div id="addDiv">
+                <input type="text" placeholder="matéria" id="matter">
+                <input type="text" placeholder="curso" id="cource">
+                <button onclick="newElement()" class="addBtn">Adicionar</button>
+            </div>
+            <table id="showTable">
+                <tr>
+                    <th>Matéria</th>
+                    <th>Curso</th>
+                </tr>
+                <tr>
+                    <td>Física</td>
+                    <td>Mecânica</td>
+                </tr>
+                <tr>
+                    <td>Física</td>
+                    <td>Lei de Ohm</td>
+                </tr>
+                <tr>
+                    <td>Matemática</td>
+                    <td>Funções</td>
+                </tr>
+                <tr>
+                    <td>Matemática</td>
+                    <td>Logarítmo</td>
+                </tr>
+                <tr>
+                    <td>Química</td>
+                    <td>Estequiometria</td>
+                </tr>
+                <tr>
+                    <td>Português</td>
+                    <td>Morfologia</td>
+                </tr>
+                <tr>
+                    <td>Inglês</td>
+                    <td>Verb to do</td>
+                </tr>
+            </table>
+            <div id="removeDiv">
+                <input type="text" placeholder="index" id="index">
+                <button onclick="removeElement()" class="removeBtn">Remover</button>
+            </div>
+        </main>
+        <!-- Link the file js in file html -->
+        <script src="index.js"></script>
+    </body>
+</html>
